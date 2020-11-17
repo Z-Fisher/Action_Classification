@@ -6,7 +6,6 @@ from torchvision.datasets.folder import make_dataset
 from torchvision.datasets.video_utils import VideoClips
 from torchvision.datasets.vision import VisionDataset
 
-
 class HMDB51(VisionDataset):
     """
     Internally, it uses a VideoClips object to handle clip creation.
@@ -82,17 +81,66 @@ class HMDB51(VisionDataset):
         return self.video_clips.num_clips()
 
     def __getitem__(self, idx):
-        video, audio, _, video_idx = self.video_clips.get_clip(idx)
+        video, _, _, video_idx = self.video_clips.get_clip(idx)
         sample_index = self.indices[video_idx]
         _, class_index = self.samples[sample_index]
 
         if self.transform is not None:
             video = self.transform(video)
 
-        return video, audio, class_index
+        return video, class_index
+
+import torch
+from torch.utils.data import DataLoader
+
+class BuildDataLoader(torch.utils.data.DataLoader):
+    def __init__(self, dataset, batch_size, shuffle, num_workers):
+        self.dataset = dataset
+        self.batch_size = batch_size
+        self.shuffle = shuffle
+        self.num_workers = num_workers
+
+    # output:
+    #  dict{images: (bz, 3, 800, 1088)
+    #       labels: list:len(bz)
+    #       masks: list:len(bz){(n_obj, 800,1088)}
+    #       bbox: list:len(bz){(n_obj, 4)}
+    #       index: list:len(bz)
+    def collect_fn(self, batch):
+        video_list = []
+        label_list = []
+
+        for video, index in batch:
+            video_list.append(video)
+            label_list.append(index)
+
+
+        data = {"videos": torch.stack(video_list),
+                "labels": label_list
+                }
+
+        return data
+
+    def loader(self):
+        return DataLoader(self.dataset,
+                          batch_size=self.batch_size,
+                          shuffle=self.shuffle,
+                          num_workers=self.num_workers,
+                          collate_fn=self.collect_fn)
 
 from dataset import *
 if __name__ == '__main__':
-    train_dataset = HMDB51("data", frames_per_clip=5)
-    test_dataset = HMDB51("data", frames_per_clip=5, train=False)
-    print()
+    DATA_FOLDER = "data"
+
+    train_dataset = HMDB51(DATA_FOLDER, frames_per_clip=5)
+    test_dataset = HMDB51(DATA_FOLDER, frames_per_clip=5, train=False)
+
+    batch_size = 2
+    train_build_loader = BuildDataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+    train_loader = train_build_loader.loader()
+    test_build_loader = BuildDataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+    test_loader = test_build_loader.loader()
+
+    for iter, data in enumerate(train_loader, 0):
+        print(data)
+        print()
