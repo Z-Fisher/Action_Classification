@@ -15,7 +15,8 @@ class SpatialStream(torch.nn.Module):
     def __init__(self, 
                  device='cuda',
                  num_classes=51,
-                 dropout_probability=0.5):
+                 dropout_probability=0.5
+                 train_resnet=True):
 
         # Initialize the stream layers
         super(SpatialStream, self).__init__()
@@ -25,7 +26,7 @@ class SpatialStream(torch.nn.Module):
         # Spatial Backbone
         self.spatial = models.resnet50(pretrained=True)
         for param in self.spatial.parameters():
-            param.requires_grad = False  # False: Freezes the weights of the pre-trained model
+            param.requires_grad = train_resnet  # False: Freezes the weights of the pre-trained model
 
         # Add to Spatial Backbone
         self.spatial.fc = nn.Sequential(nn.Linear(2048, 1024),
