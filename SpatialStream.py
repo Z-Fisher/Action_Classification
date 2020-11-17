@@ -45,31 +45,6 @@ class SpatialStream(torch.nn.Module):
     def postprocess(self, out_c, out_r, IOU_thresh=0.5, keep_num_preNMS=50, keep_num_postNMS=10):
         pass
 
-
-class TemporalStream(torch.nn.Module):
-
-    def __init__(self, 
-                 device='cuda',
-                 num_classes=51,
-                 dropout_probability=0.5):
-
-        # Initialize the stream layers
-        super(TemporalStream, self).__init__()
-        self.device = device
-        self.num_classes = num_classes
-
-
-
-    def forward(self, X):
-        pass
-
-    def compute_loss(self, clas_out, regr_out, targ_clas, targ_regr, l=1, effective_batch=50):
-        pass
-
-    def postprocess(self, out_c, out_r, IOU_thresh=0.5, keep_num_preNMS=50, keep_num_postNMS=10):
-        pass
-
-
 if __name__ == "__main__":
 
     # Spatial
