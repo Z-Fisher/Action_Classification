@@ -15,7 +15,7 @@ class SpatialStream(torch.nn.Module):
     def __init__(self, 
                  device='cuda',
                  num_classes=51,
-                 dropout_probability=0.5
+                 dropout_probability=0.5,
                  train_resnet=True):
 
         # Initialize the stream layers
