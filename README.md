@@ -7,3 +7,8 @@ Data sampled by every consecutive frame, without defining a set framerate or ski
 ## Sampled Dataset
 Data sampled at 6 fps, skipping 1 second between frames
 
+## Models
+All necessary models can be found in this gdrive link: https://drive.google.com/drive/folders/1jeQpvKQttygRkUPmZcLOl1YYjefw0CH3?usp=sharing
+
+## Plotting Model Performance
+Any models performance (training loss, validation loss, accuracy) can be plotted using the plotting.py function. Make sure to update the path to model
