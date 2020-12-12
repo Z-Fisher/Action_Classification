@@ -25,26 +25,7 @@ accuracy_list = checkpoint['accuracy_list']
 
 epoch_list = np.arange(num_epochs+1)
 
-# Train Loss
-# fig = plt.figure()
-# plt.plot(train_counter, train_class_loss_list, color='blue')
-# plt.legend(['Training Class Loss'], loc='upper right')
-# plt.xlabel('Training Iterations')
-# plt.ylabel('Class Loss')
-#
-# fig = plt.figure()
-# plt.plot(train_counter, train_reg_loss_list, color='blue')
-# plt.legend(['Training Reg Loss'], loc='upper right')
-# plt.xlabel('Training Iterations')
-# plt.ylabel('Reg Loss')
-#
-# fig = plt.figure()
-# plt.plot(train_counter, train_total_loss_list, color='blue')
-# plt.legend(['Training Loss'], loc='upper right')
-# plt.xlabel('Training Iterations')
-# plt.ylabel('Total Loss')
-
-
+# Training Loss
 fig = plt.figure()
 plt.plot(epoch_list, epoch_total_loss_list, color='blue')
 plt.legend(['Training Loss'], loc='upper right')
