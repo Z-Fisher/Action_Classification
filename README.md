@@ -1,4 +1,6 @@
 # Two-Stream Human Action Classification performed using ConvNets.
+View "dataset_curation.md" to find instructions for setting up the datasets.
+
 ## Full Dataset
 Data sampled by every consecutive frame, without defining a set framerate or skipping frames.
 
