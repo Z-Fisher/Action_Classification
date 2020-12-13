@@ -1,3 +1,4 @@
+import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import torch.optim as optim
@@ -5,11 +6,9 @@ import torchvision.transforms as transforms
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-from dataset import *
-from SpatialStream import *
 
 # Load Model
-network_path = 'models/spatial_epoch11'
+network_path = 'models/fused_epoch2'
 if torch.cuda.is_available():
     checkpoint = torch.load(network_path)
 else:
