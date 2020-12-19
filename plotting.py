@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import os
 
 # Load Model
-network_path = 'models/fused_epoch2'
+network_path = 'models/fused_epoch6'
 if torch.cuda.is_available():
     checkpoint = torch.load(network_path)
 else:
@@ -27,9 +27,9 @@ epoch_list = np.arange(num_epochs+1)
 # Training Loss
 fig = plt.figure()
 plt.plot(epoch_list, epoch_total_loss_list, color='blue')
-plt.legend(['Training Loss'], loc='upper right')
+plt.legend(['FuseNet Train Loss'], loc='upper right')
 plt.xlabel('Epochs')
-plt.ylabel('Average Training Loss per Epoch')
+plt.ylabel('Total Loss')
 
 # Test Loss
 fig = plt.figure()
@@ -41,7 +41,7 @@ plt.ylabel('Total Loss')
 # Accuracy
 fig = plt.figure()
 plt.plot(epoch_list, accuracy_list, color='red')
-plt.legend(['Accuracy'], loc='upper left')
+plt.legend(['FuseNet Validation Accuracy'], loc='lower right')
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 
