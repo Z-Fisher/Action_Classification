@@ -214,9 +214,9 @@ matplotlib.use('TkAgg')
 
 if __name__ == '__main__':
     DATA_FOLDER = "data"
-    num_frames = 1
+    num_frames = 3
 
-    # Save the training data in files for each batch
+    # # Save the training data in files for each batch
     transform = tf.Compose([tf.Resize(256), tf.RandomCrop(224)])
 
     # Load dataset
@@ -254,7 +254,7 @@ if __name__ == '__main__':
 
         print("Saved batch {}/{}".format(iter + 1, n))
 
-    # f.close()
+    #f.close()
 
     # Save the test data in files for each batch
     transform = tf.Compose([tf.Resize(256), tf.CenterCrop(224)])
